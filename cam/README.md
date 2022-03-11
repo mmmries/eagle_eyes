@@ -10,13 +10,32 @@ We provision them with names like `cam1.local`, `cam2.local`, etc.
 * after booting install some dependencies:
 
 ```
-sudo apt-get install git python3-picamera ffmpeg
+sudo apt-get install git python3-picamera ffmpeg elixir
+mix local.rebar
+mix local.hex
 ```
 
 * Now you'll need to enable the legacy camera interface
 * Run `sudo raspi-config`
 * Select "3 - Interface Options" => "I1 Legacy Camera" => "Yes" => "ok" => "reboot"
 * Run `mkdir clips` in the home directory of the `pi` user
+
+## Current Versions
+
+As of this writing, the current versions are:
+
+```
+pi@cam1:~ $ uname -a
+Linux cam1 5.10.92-v7+ #1514 SMP Mon Jan 17 17:36:39 GMT 2022 armv7l GNU/Linux
+
+pi@cam1:~ $ elixir --version
+Erlang/OTP 23 [erts-11.1.8] [source] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Elixir 1.10.3 (compiled with Erlang/OTP 22)
+pi@cam1:~ $ ffmpeg -version
+ffmpeg version 4.3.3-0+rpt2+deb11u1 Copyright (c) 2000-2021 the FFmpeg developers
+built with gcc 10 (Raspbian 10.2.1-6+rpi1)
+```
 
 ## Installing
 
@@ -26,7 +45,7 @@ jump into the console inside the `cam` directory and run this:
 ```
 sudo cp watchr.service /etc/systemd/system/watchr.service
 sudo systemctl daemon-reload
-sudo systemctl start watchr.service
+sudo systemctl enable --now watchr.service
 ```
 
 ## Converting Clip Files
