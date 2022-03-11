@@ -7,8 +7,7 @@ defmodule Cam.Application do
 
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: Cam.Worker.start_link(arg)
-      # {Cam.Worker, arg}
+      {MuonTrap.Daemon, ["python", ["watch.py"]]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
