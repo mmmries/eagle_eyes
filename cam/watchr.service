@@ -3,10 +3,12 @@ Description=<A python script to watch the camera and record clips after detectin
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python /home/pi/cam/watch.py
+Environment="MIX_ENV=dev"
+ExecStart=mix run --no-halt
 User=pi
 Restart=on-failure
 RestartSec=10s
+WorkingDirectory=/home/pi/eagle_eyes/cam
 
 [Install]
 WantedBy=multi-user.target

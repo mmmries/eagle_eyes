@@ -39,8 +39,9 @@ built with gcc 10 (Raspbian 10.2.1-6+rpi1)
 
 ## Installing
 
-Just copy this `cam` directory onto your provisioned device at `/home/pi/cam` then
-jump into the console inside the `cam` directory and run this:
+Login to the device with ssh (your home directory should be `/home/pi`) and then
+git clone this repository into `/home/pi/eagle_eyes`.
+Then cd to `eagle_eyes/cam` and setup the systemd job by running this:
 
 ```
 sudo cp watchr.service /etc/systemd/system/watchr.service
