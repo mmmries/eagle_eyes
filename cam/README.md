@@ -49,6 +49,16 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now watchr.service
 ```
 
+## Updating
+
+```
+sudo systemctl stop watchr.service
+git pull
+sudo cp watchr.service /etc/systemd/system/watchr.service
+sudo systemctl daemon-reload
+sudo systemctl start watchr.service
+```
+
 ## Converting Clip Files
 
 You can easily convert the clip files from h264 to mp4 like this:
