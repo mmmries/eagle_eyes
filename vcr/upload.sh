@@ -6,13 +6,13 @@
 # Usage:
 #   upload.sh [destination IP] [Path to .fw file]
 #
-# If unspecified, the destination is nerves.local and the .fw file is naively
+# If unspecified, the destination is screen.riesd.com and the .fw file is naively
 # guessed
 #
 # You may want to add the following to your `~/.ssh/config` to avoid recording
 # the IP addresses of the target:
 #
-# Host nerves.local
+# Host screen.riesd.com
 #   UserKnownHostsFile /dev/null
 #   StrictHostKeyChecking no
 #
@@ -48,7 +48,7 @@ help() {
 
 [ -n "$DESTINATION" ] || DESTINATION=screen.riesd.com
 if [ -z "$FILENAME" ]; then
-  [ -n "$MIX_TARGET" ] || MIX_TARGET=rp3a
+  [ -n "$MIX_TARGET" ] || MIX_TARGET=rpi3a
   [ -n "$MIX_ENV" ] || MIX_ENV=dev
   FIRMWARE_PATH="./_build/${MIX_TARGET}_${MIX_ENV}/nerves/images"
   if [ ! -d "$FIRMWARE_PATH" ]; then

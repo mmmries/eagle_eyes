@@ -6,23 +6,25 @@ defmodule ScreenWeb.DashboardLive do
 
   @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
-    socket =
-      socket
-      |> assign(cameras: Cameras.list_cameras())
-
     if connected?(socket) do
       schedule_refresh()
     end
 
-    {:ok, socket}
+    {:ok, load_cameras(socket)}
   end
 
   @impl Phoenix.LiveView
   def handle_info(:tick, socket) do
-    socket = assign(socket, cameras: Cameras.list_cameras())
-
     schedule_refresh()
-    {:noreply, socket}
+    {:noreply, load_cameras(socket)}
+  end
+
+  defp load_cameras(socket) do
+    cameras =
+      Cameras.list_cameras()
+      |> Enum.map(&%{name: &1.name, ago: Screen.RelativeTime.time_ago(&1.last_seen)})
+
+    socket |> assign(cameras: cameras)
   end
 
   defp schedule_refresh do
