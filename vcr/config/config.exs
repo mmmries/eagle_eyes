@@ -26,6 +26,9 @@ config :nerves, source_date_epoch: "1647093636"
 
 config :logger, backends: [RingLogger]
 
+config :screen,
+  ecto_repos: [Screen.Repo]
+
 if Mix.target() == :host or Mix.target() == :"" do
   import_config "host.exs"
 else

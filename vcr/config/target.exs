@@ -1,5 +1,39 @@
 import Config
 
+# The secret key base is used to sign/encrypt cookies and other secrets.
+# A default value is used in config/dev.exs and config/test.exs but you
+# want to use a different value for prod and you most likely don't want
+# to check this value into version control, so we use an environment
+# variable instead.
+secret_key_base =
+  System.get_env("SECRET_KEY_BASE") ||
+    raise """
+    environment variable SECRET_KEY_BASE is missing.
+    You can generate one by calling: mix phx.gen.secret
+    """
+
+config :screen, ScreenWeb.Endpoint,
+  url: [host: "screen.riesd.com"],
+  http: [port: 80],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  secret_key_base: secret_key_base,
+  live_view: [signing_salt: "AAAABjEyERMkxgDh"],
+  check_origin: false,
+  # Start the server since we're running in a release instead of through `mix`
+  server: true,
+  render_errors: [view: UiWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Ui.PubSub,
+  # Nerves root filesystem is read-only, so disable the code reloader
+  code_reloader: false
+
+config :screen, Screen.Repo,
+  database: "/data/screen/screen.db",
+  pool_size: 5,
+  show_sensitive_data_on_connection_error: true
+
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
+
 # Use shoehorn to start the main application. See the shoehorn
 # docs for separating out critical OTP applications such as those
 # involved with firmware updates.
@@ -58,7 +92,19 @@ config :vintage_net,
        type: VintageNetEthernet,
        ipv4: %{method: :dhcp}
      }},
-    {"wlan0", %{type: VintageNetWiFi}}
+    {"wlan0", %{
+      type: VintageNetWiFi,
+      vintage_net_wifi: %{
+        networks: [
+          %{
+            key_mgmt: :wpa_psk,
+            ssid: System.get_env("NERVES_NETWORK_SSID"),
+            psk: System.get_env("NERVES_NETWORK_PSK")
+          }
+        ]
+      },
+      ipv4: %{method: :dhcp}
+    }}
   ]
 
 config :mdns_lite,
@@ -70,7 +116,7 @@ config :mdns_lite,
   # because otherwise any of the devices may respond to nerves.local leading to
   # unpredictable behavior.
 
-  hosts: [:hostname, "nerves"],
+  hosts: [:hostname, "screen"],
   ttl: 120,
 
   # Advertise the following services over mDNS.
