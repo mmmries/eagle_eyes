@@ -5,5 +5,8 @@ defmodule ScreenWeb.PageController do
     render(conn, "index.html")
   end
 
-
+  def checkin(conn, %{"name" => name}) do
+    Screen.Cameras.checkin(name)
+    json(conn, %{"ok" => true})
+  end
 end

@@ -17,7 +17,8 @@ defmodule ScreenWeb.Router do
   scope "/", ScreenWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", DashboardLive
+    post "/checkin", PageController, :checkin
   end
 
   # Other scopes may use custom stacks.
