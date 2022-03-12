@@ -22,7 +22,8 @@ defmodule Cam.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:muontrap, "~> 1.0"}
+      {:muontrap, "~> 1.0"},
+      {:json, "~> 1.4"}
     ]
   end
 end

@@ -26,9 +26,23 @@ defmodule Cam.Converter do
   end
 
   def convert_file(filepath) do
-    destination = Path.join(Cam.converted_clip_directory(), Path.basename(filepath, ".h264") <> ".mp4")
-    # ffmpeg -framerate 24 -i 1646826659.h264 -c copy 1646826659.mp4
-    args = ["-loglevel", "quiet", "-y", "-framerate", "24", "-i", filepath, "-c", "copy", destination]
+    destination =
+      Cam.converted_clip_directory()
+      |> Path.join(Path.basename(filepath, ".h264") <> ".mp4")
+
+    args = [
+      "-loglevel",
+      "quiet",
+      "-y",
+      "-framerate",
+      "24",
+      "-i",
+      filepath,
+      "-c",
+      "copy",
+      destination
+    ]
+
     {_output, 0} = System.cmd("ffmpeg", args, stderr_to_stdout: true)
     File.rm!(filepath)
   end
