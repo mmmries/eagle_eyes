@@ -1,5 +1,5 @@
 [Unit]
-Description=<A python script to watch the camera and record clips after detecting motion>
+Description=<Daemon that watches the camera for movement and captures clips to send them back to a central service>
 After=network.target
 
 [Service]
