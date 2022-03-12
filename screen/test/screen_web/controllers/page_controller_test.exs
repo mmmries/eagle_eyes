@@ -6,8 +6,8 @@ defmodule ScreenWeb.PageControllerTest do
     assert html_response(conn, 200) =~ "Cameras"
   end
 
-  test "POST /checkin", %{conn: conn} do
-    conn = post(conn, "/checkin", %{"name" => "foo"})
+  test "POST /api/checkin", %{conn: conn} do
+    conn = post(conn, "/api/checkin", %{"name" => "foo"})
     assert json_response(conn, 200) == %{"ok" => true}
   end
 end

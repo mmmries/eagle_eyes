@@ -18,6 +18,11 @@ defmodule ScreenWeb.Router do
     pipe_through :browser
 
     live "/", DashboardLive
+  end
+
+  scope "/api", ScreenWeb do
+    pipe_through :api
+
     post "/checkin", PageController, :checkin
   end
 
