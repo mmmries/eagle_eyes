@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Environment="MIX_ENV=dev"
-ExecStart=mix run --no-halt
+ExecStart=/usr/bin/bash bin/launch.sh
 User=pi
 Restart=on-failure
 RestartSec=10s
