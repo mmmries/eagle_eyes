@@ -18,3 +18,10 @@ This device runs the `screen` project which manages the various clips and
 provides a Phoenix LiveView app.
 The `vcr` project is a nerves app which embeds the `screen` project and 
 gets everything pulled together and ready to run as a firmware project.
+
+## Project Secrets
+
+There are a several sensitive pieces of data that shouldn't be shared
+online in this project.
+I like to use [direnv](https://direnv.net/) and create a file in the root
+of this project with things like the `NERVES_NETWORK_PSK` and `SECRET_KEY_BASE`.
