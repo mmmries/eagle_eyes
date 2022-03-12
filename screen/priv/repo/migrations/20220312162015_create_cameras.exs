@@ -3,8 +3,7 @@ defmodule Screen.Repo.Migrations.CreateCameras do
 
   def change do
     create table(:cameras, primary_key: false) do
-      add :id, :binary_id, primary_key: true
-      add :name, :string
+      add :name, :string, primary_key: true
       add :last_seen, :utc_datetime
 
       timestamps()

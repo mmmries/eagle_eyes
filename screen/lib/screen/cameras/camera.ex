@@ -2,11 +2,11 @@ defmodule Screen.Cameras.Camera do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @primary_key {:id, :binary_id, autogenerate: true}
+  @primary_key {:name, :string, []}
+  @derive {Phoenix.Param, key: :name}
   @foreign_key_type :binary_id
   schema "cameras" do
-    field :last_seen, :utc_datetime
-    field :name, :string
+    field :last_seen, :utc_datetime_usec
 
     timestamps()
   end

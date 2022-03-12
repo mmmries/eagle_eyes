@@ -28,14 +28,14 @@ defmodule Screen.Cameras do
 
   ## Examples
 
-      iex> get_camera!(123)
-      %Camera{}
+      iex> get_camera!("cam1")
+      %Camera{name: "cam1"}
 
-      iex> get_camera!(456)
+      iex> get_camera!("foo")
       ** (Ecto.NoResultsError)
 
   """
-  def get_camera!(id), do: Repo.get!(Camera, id)
+  def get_camera!(name), do: Repo.get!(Camera, name)
 
   @doc """
   Creates a camera.
