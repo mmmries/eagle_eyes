@@ -6,11 +6,13 @@ defmodule Cam.Application do
   use Application
 
   def start(_type, _args) do
-    :ok = File.mkdir_p("/home/pi/clips")
-    :ok = File.mkdir_p("/home/pi/converted")
+    Enum.each(Cam.directories(), fn(dir) ->
+      :ok = File.mkdir_p(dir)
+    end)
 
     children = [
       {MuonTrap.Daemon, ["python", ["watch.py"]]}
+      {Cam.Converter, nil}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

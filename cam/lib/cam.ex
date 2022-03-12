@@ -1,18 +1,16 @@
 defmodule Cam do
-  @moduledoc """
-  Documentation for `Cam`.
-  """
+  def directories do
+    [
+      raw_clip_directory(),
+      converted_clip_directory()
+    ]
+  end
 
-  @doc """
-  Hello world.
+  def raw_clip_directory do
+    "/home/pi/clips"
+  end
 
-  ## Examples
-
-      iex> Cam.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def converted_clip_directory do
+    "/home/pi/converted"
   end
 end
