@@ -75,3 +75,4 @@ ssh into a device and run this:
 ```
 journalctl -f -u watchr.service
 ```
+

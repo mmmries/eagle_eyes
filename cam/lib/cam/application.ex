@@ -11,7 +11,7 @@ defmodule Cam.Application do
     end)
 
     children = [
-      {MuonTrap.Daemon, ["python", ["watch.py"]]}
+      {MuonTrap.Daemon, ["python", ["watch.py"]]},
       {Cam.Converter, nil}
     ]
 
