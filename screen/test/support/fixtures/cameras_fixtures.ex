@@ -11,7 +11,7 @@ defmodule Screen.CamerasFixtures do
     {:ok, camera} =
       attrs
       |> Enum.into(%{
-        last_seen: ~U[2022-03-11 16:20:00Z],
+        last_seen: ~U[2020-03-11 16:20:00Z],
         name: "some name"
       })
       |> Screen.Cameras.create_camera()

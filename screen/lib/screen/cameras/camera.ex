@@ -8,7 +8,7 @@ defmodule Screen.Cameras.Camera do
   schema "cameras" do
     field :last_seen, :utc_datetime_usec
 
-    timestamps()
+    timestamps(type: :utc_datetime_usec)
   end
 
   @doc false
@@ -16,5 +16,6 @@ defmodule Screen.Cameras.Camera do
     camera
     |> cast(attrs, [:name, :last_seen])
     |> validate_required([:name, :last_seen])
+    |> unique_constraint(:name)
   end
 end

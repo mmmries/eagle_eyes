@@ -9,6 +9,25 @@ defmodule Screen.Cameras do
   alias Screen.Cameras.Camera
 
   @doc """
+  Receive a hearbeat checkin from one of the cameras
+
+  This will either create or update the associated camera record
+  """
+  def checkin(name) do
+    now = DateTime.utc_now()
+    camera = %Camera{
+      name: name,
+      last_seen: now,
+      inserted_at: now,
+      updated_at: now
+    }
+    Repo.insert!(camera, [
+      on_conflict: {:replace, [:last_seen, :updated_at]},
+      conflict_target: :name
+    ])
+  end
+
+  @doc """
   Returns the list of cameras.
 
   ## Examples

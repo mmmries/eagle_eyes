@@ -10,6 +10,24 @@ defmodule Screen.CamerasTest do
 
     @invalid_attrs %{last_seen: nil, name: nil}
 
+    test "checkin/1 will create a new camera if it hasn't been seen before" do
+      %Camera{} = camera = Cameras.checkin("foo")
+      assert camera.name == "foo"
+      assert %DateTime{} = camera.last_seen
+
+      assert %Camera{} = Cameras.get_camera!("foo")
+    end
+
+    test "checkin/1 will update the last_seen timestamp on an existing camera" do
+      camera = camera_fixture()
+      camera2 = Cameras.checkin(camera.name)
+      assert camera.name == camera2.name
+      assert DateTime.compare(camera2.last_seen, camera.last_seen) == :gt
+      camera3 = Cameras.get_camera!(camera.name)
+      assert camera3.last_seen == camera2.last_seen
+      assert camera3.name == camera.name
+    end
+
     test "list_cameras/0 returns all cameras" do
       camera = camera_fixture()
       assert Cameras.list_cameras() == [camera]
