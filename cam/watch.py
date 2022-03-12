@@ -3,6 +3,7 @@ import numpy as np
 import picamera
 import picamera.array
 import time
+import os
 
 class DetectMotion(picamera.array.PiMotionAnalysis):
   def __init__(self, camera):
@@ -30,10 +31,13 @@ class Watchr:
 
   @classmethod
   def record_clip(_class, camera):
-    filename = "/home/pi/clips/{timestamp:.0f}.h264".format(timestamp = time.time())
-    camera.start_recording(filename, format='h264')
+    ts = time.time()
+    temp_filename = "/home/pi/clips/{timestamp:.0f}.tmp".format(timestamp = ts)
+    final_filename = "/home/pi/clips/{timestamp:.0f}.h264".format(timestamp = ts)
+    camera.start_recording(temp_filename, format='h264')
     camera.wait_recording(30)
     camera.stop_recording()
+    os.rename(temp_filename, final_filename)
     print('CAPTURED CLIP!')
 
 with picamera.PiCamera() as camera:
