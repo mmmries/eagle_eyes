@@ -6,6 +6,9 @@ defmodule Cam.Application do
   use Application
 
   def start(_type, _args) do
+    :ok = File.mkdir_p("/home/pi/clips")
+    :ok = File.mkdir_p("/home/pi/converted")
+
     children = [
       {MuonTrap.Daemon, ["python", ["watch.py"]]}
     ]

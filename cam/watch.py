@@ -30,7 +30,7 @@ class Watchr:
 
   @classmethod
   def record_clip(_class, camera):
-    filename = "clips/{timestamp:.0f}.h264".format(timestamp = time.time())
+    filename = "/home/pi/clips/{timestamp:.0f}.h264".format(timestamp = time.time())
     camera.start_recording(filename, format='h264')
     camera.wait_recording(30)
     camera.stop_recording()
