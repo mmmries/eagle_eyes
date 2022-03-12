@@ -13,9 +13,7 @@ defmodule Vcr.Application do
 
     children =
       [
-        # Children for all targets
-        # Starts a worker by calling: Vcr.Worker.start_link(arg)
-        # {Vcr.Worker, arg},
+        {Task, &Vcr.MigrationHelpers.migrate/0}
       ] ++ children(target())
 
     Supervisor.start_link(children, opts)

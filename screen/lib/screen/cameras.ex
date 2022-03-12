@@ -15,16 +15,18 @@ defmodule Screen.Cameras do
   """
   def checkin(name) do
     now = DateTime.utc_now()
+
     camera = %Camera{
       name: name,
       last_seen: now,
       inserted_at: now,
       updated_at: now
     }
-    Repo.insert!(camera, [
+
+    Repo.insert!(camera,
       on_conflict: {:replace, [:last_seen, :updated_at]},
       conflict_target: :name
-    ])
+    )
   end
 
   @doc """
