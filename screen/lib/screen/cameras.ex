@@ -122,4 +122,31 @@ defmodule Screen.Cameras do
   def change_camera(%Camera{} = camera, attrs \\ %{}) do
     Camera.changeset(camera, attrs)
   end
+
+  alias Screen.Cameras.Clip
+
+  def get_clip!(id), do: Repo.get!(Clip, id)
+
+  def create_clip(camera, attrs \\ %{}) do
+    camera
+    |> Ecto.build_assoc(:clips)
+    |> Clip.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Deletes a clip.
+
+  ## Examples
+
+      iex> delete_clip(clip)
+      {:ok, %Clip{}}
+
+      iex> delete_clip(clip)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_clip(%Clip{} = clip) do
+    Repo.delete(clip)
+  end
 end

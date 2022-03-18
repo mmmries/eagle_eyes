@@ -7,6 +7,11 @@
 # General application configuration
 import Config
 
+#config :screen, :clips, [
+#  dir: Path.join(:code.priv_dir(:screen), "clips"),
+#  max_disk_usage: 100 * 1024 * 1024 # 100MB
+#]
+
 config :screen,
   ecto_repos: [Screen.Repo]
 

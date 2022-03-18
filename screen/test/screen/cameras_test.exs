@@ -76,4 +76,30 @@ defmodule Screen.CamerasTest do
       assert %Ecto.Changeset{} = Cameras.change_camera(camera)
     end
   end
+
+  describe "clips" do
+    alias Screen.Cameras.Clip
+
+    import Screen.CamerasFixtures
+
+    @invalid_attrs %{timestamp: nil}
+
+    #test "get_clip!/1 returns the clip with given id" do
+    #  clip = clip_fixture()
+    #  assert Cameras.get_clip!(clip.id) == clip
+    #end
+
+    test "create_clip/1 with valid data creates a clip" do
+      camera = camera_fixture()
+      valid_attrs = %{timestamp: 42}
+
+      assert {:ok, %Clip{} = clip} = Cameras.create_clip(camera, valid_attrs)
+      assert clip.timestamp == 42
+    end
+
+    test "create_clip/1 with invalid data returns error changeset" do
+      camera = camera_fixture()
+      assert {:error, %Ecto.Changeset{}} = Cameras.create_clip(camera, @invalid_attrs)
+    end
+  end
 end

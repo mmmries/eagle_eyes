@@ -4,11 +4,12 @@ defmodule Screen.Cameras.Camera do
 
   @primary_key {:name, :string, []}
   @derive {Phoenix.Param, key: :name}
-  @foreign_key_type :binary_id
   schema "cameras" do
     field :last_seen, :utc_datetime_usec
 
     timestamps(type: :utc_datetime_usec)
+
+    has_many :clips, Screen.Cameras.Clip, foreign_key: :camera_name
   end
 
   @doc false

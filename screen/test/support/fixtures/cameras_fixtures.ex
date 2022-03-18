@@ -18,4 +18,19 @@ defmodule Screen.CamerasFixtures do
 
     camera
   end
+
+  @doc """
+  Generate a clip.
+  """
+  def clip_fixture(camera, attrs \\ %{}) do
+    attributes =
+      attrs
+      |> Enum.into(%{
+        timestamp: 1646827320
+      })
+
+    {:ok, clip} = Screen.Cameras.create_clip(camera, attributes)
+
+    clip
+  end
 end
