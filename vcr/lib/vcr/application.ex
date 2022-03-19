@@ -7,6 +7,8 @@ defmodule Vcr.Application do
 
   @impl true
   def start(_type, _args) do
+    File.mkdir_p!("/data/clips")
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Vcr.Supervisor]
