@@ -84,10 +84,11 @@ defmodule Screen.CamerasTest do
 
     @invalid_attrs %{timestamp: nil}
 
-    #test "get_clip!/1 returns the clip with given id" do
-    #  clip = clip_fixture()
-    #  assert Cameras.get_clip!(clip.id) == clip
-    #end
+    test "get_clip!/1 returns the clip with given id" do
+      camera = camera_fixture()
+      clip = clip_fixture(camera)
+      assert Cameras.get_clip!(clip.id) == clip
+    end
 
     test "create_clip/1 with valid data creates a clip" do
       camera = camera_fixture()

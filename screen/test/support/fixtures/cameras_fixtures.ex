@@ -26,7 +26,7 @@ defmodule Screen.CamerasFixtures do
     attributes =
       attrs
       |> Enum.into(%{
-        timestamp: 1646827320
+        timestamp: 1_646_827_320
       })
 
     {:ok, clip} = Screen.Cameras.create_clip(camera, attributes)

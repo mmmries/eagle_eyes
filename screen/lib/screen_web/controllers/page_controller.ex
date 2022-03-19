@@ -14,10 +14,13 @@ defmodule ScreenWeb.PageController do
     [timestamp, "mp4"] = String.split(filename, ".")
     %File.Stat{size: bytesize} = File.stat!(path)
     camera = Screen.Cameras.get_camera!(name)
-    {:ok, clip} = Screen.Cameras.create_clip(camera, %{
-      timestamp: timestamp,
-      bytesize: bytesize
-    })
+
+    {:ok, clip} =
+      Screen.Cameras.create_clip(camera, %{
+        timestamp: timestamp,
+        bytesize: bytesize
+      })
+
     Screen.Cameras.save_clip_file(clip, path)
 
     json(conn, %{"ok" => true})

@@ -8,7 +8,10 @@ defmodule Screen.Cameras.Clip do
 
     timestamps(type: :utc_datetime_usec)
 
-    belongs_to :camera, Screen.Cameras.Camera, type: :string, foreign_key: :camera_name, source: :camera_name
+    belongs_to :camera, Screen.Cameras.Camera,
+      type: :string,
+      foreign_key: :camera_name,
+      source: :camera_name
   end
 
   @doc false

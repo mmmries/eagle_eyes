@@ -8,7 +8,8 @@
 import Config
 
 config :screen, :clips, %{
-  max_disk_usage: 100 * 1024 * 1024 # 100MB
+  # 100MB
+  max_disk_usage: 100 * 1024 * 1024
 }
 
 config :screen,

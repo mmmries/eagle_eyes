@@ -12,10 +12,11 @@ defmodule ScreenWeb.PageControllerTest do
   end
 
   test "POST /api/clips", %{conn: conn} do
-    {:ok, _cam} = Screen.Cameras.create_camera(%{
-      name: "cam1",
-      last_seen: DateTime.utc_now()
-    })
+    {:ok, _cam} =
+      Screen.Cameras.create_camera(%{
+        name: "cam1",
+        last_seen: DateTime.utc_now()
+      })
 
     params = %{
       "name" => "cam1",
@@ -24,6 +25,7 @@ defmodule ScreenWeb.PageControllerTest do
         path: sample_clip_path()
       }
     }
+
     conn = post(conn, "/api/clips", params)
     assert json_response(conn, 200) == %{"ok" => true}
   end
