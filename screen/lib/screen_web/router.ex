@@ -24,6 +24,7 @@ defmodule ScreenWeb.Router do
     pipe_through :api
 
     post "/checkin", PageController, :checkin
+    post "/clips", PageController, :create_clip
   end
 
   # Other scopes may use custom stacks.

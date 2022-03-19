@@ -2,8 +2,8 @@ defmodule Screen.Cameras.Clip do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @primary_key {:id, :binary_id, autogenerate: true}
   schema "clips" do
+    field :bytesize, :integer
     field :timestamp, :integer
 
     timestamps(type: :utc_datetime_usec)

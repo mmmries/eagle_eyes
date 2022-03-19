@@ -134,6 +134,12 @@ defmodule Screen.Cameras do
     |> Repo.insert()
   end
 
+  def save_clip_file(clip, filepath) do
+    filename = "#{clip.id}.mp4"
+    destination = Path.join([clips_dir(), filename])
+    File.cp!(filepath, destination)
+  end
+
   @doc """
   Deletes a clip.
 
@@ -148,5 +154,11 @@ defmodule Screen.Cameras do
   """
   def delete_clip(%Clip{} = clip) do
     Repo.delete(clip)
+  end
+
+  defp clips_dir do
+    Application.get_env(:screen, :clips, %{}) |> Map.get_lazy(:dir, fn ->
+      Path.join([:code.priv_dir(:screen), "clips"])
+    end)
   end
 end

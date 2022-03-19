@@ -2,8 +2,7 @@ defmodule Screen.Repo.Migrations.CreateClips do
   use Ecto.Migration
 
   def change do
-    create table(:clips, primary_key: false) do
-      add :id, :binary_id, primary_key: true
+    create table(:clips) do
       add :timestamp, :integer
       add :bytesize, :integer
       add :camera_name, references(:cameras, column: :name, on_delete: :nothing, type: :string)
