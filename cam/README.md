@@ -51,21 +51,8 @@ sudo systemctl enable --now watchr.service
 
 ## Updating
 
-```
-sudo systemctl stop watchr.service
-git pull
-sudo cp watchr.service /etc/systemd/system/watchr.service
-sudo systemctl daemon-reload
-sudo systemctl start watchr.service
-```
-
-## Converting Clip Files
-
-You can easily convert the clip files from h264 to mp4 like this:
-
-```
-ffmpeg -framerate 24 -i 1646826659.h264 -c copy 1646826659.mp4
-```
+There's a helper script at `./bin/update.sh` for updating this project and safely restarting
+the watchr service.
 
 ## Checking Logs
 

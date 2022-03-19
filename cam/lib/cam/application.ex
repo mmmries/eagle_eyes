@@ -13,7 +13,8 @@ defmodule Cam.Application do
     children = [
       {MuonTrap.Daemon, ["python", ["watch.py"]]},
       {Cam.Converter, nil},
-      {Cam.Heartbeat, nil}
+      {Cam.Heartbeat, nil},
+      {Cam.Reporter, nil}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

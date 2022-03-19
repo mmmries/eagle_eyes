@@ -17,7 +17,7 @@ defmodule Cam.Heartbeat do
 
     case send_heartbeat(name) do
       {:ok, _response} ->
-        Logger.info("SENT HEARTBEAT")
+        :ok
 
       {:error, something} ->
         Logger.error("Heartbeat Error: #{inspect(something)}")
