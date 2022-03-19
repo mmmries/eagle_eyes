@@ -23,6 +23,7 @@ defmodule Cam.MixProject do
   defp deps do
     [
       {:muontrap, "~> 1.0"},
+      {:httpoison, "~> 1.8"},
       {:jason, "~> 1.3"}
     ]
   end

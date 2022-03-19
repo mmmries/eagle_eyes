@@ -26,9 +26,12 @@ defmodule Cam.Converter do
   end
 
   def convert_file(filepath) do
-    destination =
-      Cam.converted_clip_directory()
-      |> Path.join(Path.basename(filepath, ".h264") <> ".mp4")
+    # use an atomic move to put it in the converted directory
+    # this way we don't have to worry about trying to send a partially
+    # converted file
+    new_basename = Path.basename(filepath, ".h264") <> ".mp4"
+    temp_location = Path.join([Cam.raw_clip_directory(), new_basename])
+    destination = Path.join([Cam.converted_clip_directory(), new_basename])
 
     args = [
       "-loglevel",
@@ -40,11 +43,12 @@ defmodule Cam.Converter do
       filepath,
       "-c",
       "copy",
-      destination
+      temp_location
     ]
 
     {_output, 0} = System.cmd("ffmpeg", args, stderr_to_stdout: true)
     File.rm!(filepath)
+    File.rename!(temp_location, destination)
   end
 
   def get_file_list do

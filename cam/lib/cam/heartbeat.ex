@@ -2,15 +2,7 @@ defmodule Cam.Heartbeat do
   use GenServer
 
   def start_link(nil) do
-    name =
-      Node.self()
-      |> Atom.to_string()
-      |> String.split("@")
-      |> Enum.at(1)
-      |> String.split(".")
-      |> hd()
-
-    GenServer.start_link(__MODULE__, name, name: __MODULE__)
+    GenServer.start_link(__MODULE__, Cam.node_name(), name: __MODULE__)
   end
 
   @impl GenServer
