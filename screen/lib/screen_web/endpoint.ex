@@ -22,6 +22,14 @@ defmodule ScreenWeb.Endpoint do
     gzip: false,
     only: ~w(assets fonts images favicon.ico robots.txt)
 
+  # Serve mp4 security clips
+  %{dir: dir} = Application.get_env(:screen, :clips)
+
+  plug Plug.Static,
+    at: "/clips",
+    from: dir,
+    gzip: false
+
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do

@@ -157,9 +157,8 @@ defmodule Screen.Cameras do
   end
 
   defp clips_dir do
-    Application.get_env(:screen, :clips, %{})
-    |> Map.get_lazy(:dir, fn ->
-      Path.join([:code.priv_dir(:screen), "clips"])
-    end)
+    :screen
+    |> Application.get_env(:clips, %{})
+    |> Map.fetch!(:dir)
   end
 end

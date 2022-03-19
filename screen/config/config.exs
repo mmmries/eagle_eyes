@@ -8,6 +8,7 @@
 import Config
 
 config :screen, :clips, %{
+  dir: Path.join(__DIR__, "../priv/clips"),
   # 100MB
   max_disk_usage: 100 * 1024 * 1024
 }
