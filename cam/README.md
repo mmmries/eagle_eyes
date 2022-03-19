@@ -10,7 +10,7 @@ We provision them with names like `cam1.local`, `cam2.local`, etc.
 * after booting install some dependencies:
 
 ```
-sudo apt-get install git python3-picamera ffmpeg elixir
+sudo apt-get install git python3-picamera ffmpeg elixir erlang-src erlang-dev
 mix local.rebar
 mix local.hex
 ```
