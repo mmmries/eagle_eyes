@@ -1,6 +1,11 @@
 /* This file is for your main application CSS */
 @import "./phoenix.css";
 
+/* Classes specific to this codebase */
+.clipsList {
+  overflow-y: scroll;
+}
+
 /* Alerts and form errors used by phx.new */
 .alert {
   padding: 15px;

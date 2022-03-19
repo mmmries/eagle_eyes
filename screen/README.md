@@ -1,19 +1,18 @@
 # Screen
 
-To start your Phoenix server:
+A phoenix app that collects video clips from the camera modules and provides a web UI
+to review the footage on-demand.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+This projet gets packaged up by the `vcr` app to be installed as firmware onto a raspberry
+pi device.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Local Development
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+This app requires no special setup. A simple `mix.deps.get` and `iex -S mix phx.server`
+will get things started.
+Normal commands like `mix test` to run the automated tests should work as expected.
 
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+If you have some sample mp4 files you can put them in `tmp/seeds` and give them names
+of a unix timestamp and a `.mp4` suffix (ex `tmp/seeds/1647531822.mp4`) and then run
+`mix ecto.setup` to provision a development database with a single camera and all of
+the sample clips you put into the tmp directory.

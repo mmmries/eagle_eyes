@@ -1,5 +1,12 @@
 <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Hello Phoenix Example" %></h1>
+  <%= if @watching do %>
+    <video width="640" height="480" controls autoplay loop src={"/clips/#{@watching.id}.mp4"}>
+      <source src={"/clips/#{@watching.id}.mp4"} type="video/mp4">
+      Your browser does not support the video tag. <!-- Text to be shown incase browser doesnt support html5 -->
+    </video>
+  <% else %>
+    <h1>Choose a clip below</h1>
+  <% end %>
 </section>
 
 <section class="row">
@@ -14,23 +21,15 @@
     </ul>
   </article>
   <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://web.libera.chat/#elixir">#elixir on Libera Chat (IRC)</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-      <li>
-        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
-      </li>
-      <li>
-        <a href="https://discord.gg/elixir">Elixir on Discord</a>
-      </li>
+    <h2>Clips</h2>
+    <ul class="clipsList">
+      <%= for clip <- @clips do %>
+        <li>
+          <a phx-click="watch" phx-value-id={clip.id}>
+            <%= clip.camera_name %> :: <%= ts(clip.timestamp) %>
+          </a>
+        </li>
+      <% end %>
     </ul>
   </article>
 </section>

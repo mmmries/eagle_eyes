@@ -10,7 +10,19 @@ defmodule ScreenWeb.DashboardLive do
       schedule_refresh()
     end
 
-    {:ok, load_cameras(socket)}
+    socket =
+      socket
+      |> load_cameras()
+      |> load_clips()
+      |> assign(watching: nil)
+
+    {:ok, socket}
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("watch", %{"id" => id}, socket) do
+    clip = Cameras.get_clip!(String.to_integer(id))
+    {:noreply, assign(socket, watching: clip)}
   end
 
   @impl Phoenix.LiveView
@@ -27,7 +39,15 @@ defmodule ScreenWeb.DashboardLive do
     socket |> assign(cameras: cameras)
   end
 
+  defp load_clips(socket) do
+    assign(socket, clips: Screen.Cameras.recent_clips(10))
+  end
+
   defp schedule_refresh do
     Process.send_after(self(), :tick, @refresh_timeout)
+  end
+
+  defp ts(timestamp) do
+    DateTime.from_unix!(timestamp) |> DateTime.to_iso8601()
   end
 end

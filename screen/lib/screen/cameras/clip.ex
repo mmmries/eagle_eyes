@@ -20,4 +20,9 @@ defmodule Screen.Cameras.Clip do
     |> cast(attrs, [:timestamp, :bytesize])
     |> validate_required([:timestamp, :bytesize])
   end
+
+  def filepath(clip) do
+    filename = "#{clip.id}.mp4"
+    Path.join([Screen.Cameras.clips_dir(), filename])
+  end
 end

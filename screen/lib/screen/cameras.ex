@@ -127,6 +127,14 @@ defmodule Screen.Cameras do
 
   def get_clip!(id), do: Repo.get!(Clip, id)
 
+  def recent_clips(limit) do
+    from(c in Clip,
+      order_by: [desc: c.timestamp],
+      limit: ^limit
+    )
+    |> Repo.all()
+  end
+
   def create_clip(camera, attrs \\ %{}) do
     camera
     |> Ecto.build_assoc(:clips)
@@ -135,8 +143,7 @@ defmodule Screen.Cameras do
   end
 
   def save_clip_file(clip, filepath) do
-    filename = "#{clip.id}.mp4"
-    destination = Path.join([clips_dir(), filename])
+    destination = Clip.filepath(clip)
     File.cp!(filepath, destination)
   end
 
@@ -156,7 +163,7 @@ defmodule Screen.Cameras do
     Repo.delete(clip)
   end
 
-  defp clips_dir do
+  def clips_dir do
     :screen
     |> Application.get_env(:clips, %{})
     |> Map.fetch!(:dir)
