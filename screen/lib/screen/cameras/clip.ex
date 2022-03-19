@@ -17,7 +17,7 @@ defmodule Screen.Cameras.Clip do
   @doc false
   def changeset(clip, attrs) do
     clip
-    |> cast(attrs, [:timestamp])
-    |> validate_required([:timestamp])
+    |> cast(attrs, [:timestamp, :bytesize])
+    |> validate_required([:timestamp, :bytesize])
   end
 end

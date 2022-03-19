@@ -23,6 +23,6 @@ defmodule ScreenWeb.PageController do
 
     Screen.Cameras.save_clip_file(clip, path)
 
-    json(conn, %{"ok" => true})
+    json(conn, %{"ok" => true, "id" => clip.id})
   end
 end

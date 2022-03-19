@@ -92,10 +92,11 @@ defmodule Screen.CamerasTest do
 
     test "create_clip/1 with valid data creates a clip" do
       camera = camera_fixture()
-      valid_attrs = %{timestamp: 42}
+      valid_attrs = %{timestamp: 42, bytesize: 150}
 
       assert {:ok, %Clip{} = clip} = Cameras.create_clip(camera, valid_attrs)
       assert clip.timestamp == 42
+      assert clip.bytesize == 150
     end
 
     test "create_clip/1 with invalid data returns error changeset" do
