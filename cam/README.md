@@ -6,8 +6,10 @@ We provision them with names like `cam1.local`, `cam2.local`, etc.
 ## Provisioning a Camera Node
 
 * use RaspiOS (32-bit) Lite
-* configure SSH keys, WiFi, etc using the imager
-* after booting install some dependencies:
+* configure SSH keys, WiFi, etc using the imager and then burn the SD card
+  * make sure you modify the hostname to be something like `cam4.local`
+* after powering on the device you can try to find it using `ping cam4.local`
+* now connect using `ssh pi@cam4.local` and install some dependencies:
 
 ```
 sudo apt-get install git python3-picamera ffmpeg elixir erlang-src erlang-dev
@@ -18,7 +20,15 @@ mix local.hex
 * Now you'll need to enable the legacy camera interface
 * Run `sudo raspi-config`
 * Select "3 - Interface Options" => "I1 Legacy Camera" => "Yes" => "ok" => "reboot"
-* Run `mkdir clips` in the home directory of the `pi` user
+
+## Optional DNS
+
+The multicast DNS that we used to find the raspberry pi is really convenient, but
+not super reliable. You may want to log into your WiFi router and setup a DHCP
+IP reservation to give your pi a consistent IP address.
+
+You can then set a public DNS record for this IP address as something like `cam4.riesd.com`.
+This will make the DNS lookup very fast in the future if you need to access the device.
 
 ## Current Versions
 
@@ -37,13 +47,14 @@ ffmpeg version 4.3.3-0+rpt2+deb11u1 Copyright (c) 2000-2021 the FFmpeg developer
 built with gcc 10 (Raspbian 10.2.1-6+rpi1)
 ```
 
-## Installing
+## Installing Cam
 
 Login to the device with ssh (your home directory should be `/home/pi`) and then
 git clone this repository into `/home/pi/eagle_eyes`.
 Then cd to `eagle_eyes/cam` and setup the systemd job by running this:
 
 ```
+mix do deps.get compile
 sudo cp watchr.service /etc/systemd/system/watchr.service
 sudo systemctl daemon-reload
 sudo systemctl enable --now watchr.service
