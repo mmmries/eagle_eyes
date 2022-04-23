@@ -1,5 +1,6 @@
 defmodule Cam.Reporter do
   use GenServer
+  require Logger
 
   def start_link(nil) do
     GenServer.start_link(__MODULE__, Cam.node_name(), name: __MODULE__)
@@ -28,9 +29,13 @@ defmodule Cam.Reporter do
   @url "http://screen.riesd.com/api/clips"
   def send_file(filepath, name) do
     form = [{"name", name}, {:file, filepath}]
-    %HTTPoison.Response{status_code: 200} = HTTPoison.post!(@url, {:multipart, form}, [])
-    # only delete it after it's been acknowledged
-    File.rm!(filepath)
+    case HTTPoison.post!(@url, {:multipart, form}, []) do
+      %HTTPoison.Response{status_code: 200} ->
+        # only delete it after it's been acknowledged
+        File.rm!(filepath)
+      other ->
+        Logger.error("Failed to send clip: #{inspect(other)}")
+    end
   end
 
   def get_file_list do
