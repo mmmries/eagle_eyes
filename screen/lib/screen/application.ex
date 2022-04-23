@@ -15,9 +15,9 @@ defmodule Screen.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Screen.PubSub},
       # Start the Endpoint (http/https)
-      ScreenWeb.Endpoint
+      ScreenWeb.Endpoint,
       # Start a worker by calling: Screen.Worker.start_link(arg)
-      # {Screen.Worker, arg}
+      {Screen.DiskWatcher, nil}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

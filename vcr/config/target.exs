@@ -48,6 +48,13 @@ config :shoehorn,
   init: [:nerves_runtime, :nerves_pack],
   app: Mix.Project.config()[:app]
 
+  config :logger,
+  level: :info,
+  compile_time_purge_matching: [
+    [level_lower_than: :info]
+  ]
+
+
 # Nerves Runtime can enumerate hardware devices and send notifications via
 # SystemRegistry. This slows down startup and not many programs make use of
 # this feature.

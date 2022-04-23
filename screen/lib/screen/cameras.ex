@@ -168,4 +168,18 @@ defmodule Screen.Cameras do
     |> Application.get_env(:clips, %{})
     |> Map.fetch!(:dir)
   end
+
+  def cleanup_old_clips(number) do
+    (from c in Clip, order_by: c.timestamp, limit: ^number)
+    |> Repo.all()
+    |> Enum.each(fn(clip) ->
+      path = Clip.filepath(clip)
+      File.rm!(path)
+      {:ok, _clip} = delete_clip(clip)
+    end)
+  end
+
+  def total_clip_size do
+    Screen.Repo.aggregate(Clip, :sum, :bytesize)
+  end
 end
